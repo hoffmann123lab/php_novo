@@ -1,25 +1,14 @@
 <?php
+require "connection.php";
 
-require_once "connection.php";
+$nome = $_POST['nome'];
+$email = $_POST['email'];
+$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $nome, $email, $senha);
 
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+$stmt->execute();
 
-    $stmt = $conn->prepare(
-        "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)"
-    );
-
-    $stmt->bind_param("sss", $nome, $email, $senha);
-
-    if ($stmt->execute()) {
-        echo "Usuário cadastrado com sucesso!";
-    } else {
-        echo "Erro: " . $stmt->error;
-    }
-
-} else {
-    echo "Acesso inválido.";
-}
+header("Location: listar.php");
+exit;
