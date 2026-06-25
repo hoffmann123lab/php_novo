@@ -1,14 +1,19 @@
 <?php
-require "connection.php";
+    require "connection.php";
 
-$nome = $_POST['nome'];
-$email = $_POST['email'];
-$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $nome = $_POST['nome'];
+    $idade = $_POST['idade'];
+    $email = $_POST['email'];
+    $curso = $_POST['curso'];
 
-$stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $nome, $email, $senha);
+    $stmt = $conn->prepare(
+        "INSERT INTO usuarios (nome, idade, email, curso)
+        VALUES (?, ?, ?, ?)"
+    );
 
-$stmt->execute();
+    $stmt->bind_param("siss", $nome, $idade, $email, $curso);
 
-header("Location: listar.php");
+    $stmt->execute();
+
+    header("Location: listar.php");
 exit;
