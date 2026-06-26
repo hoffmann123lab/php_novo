@@ -1,3 +1,7 @@
+/* ==========================
+   GERAL
+========================== */
+
 *{
     margin:0;
     padding:0;
@@ -6,40 +10,34 @@
 }
 
 body{
-    height:100vh;
+    background:linear-gradient(135deg,#4facfe,#00c6fb);
+    min-height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
-
-    background:linear-gradient(135deg,#4facfe,#00f2fe);
 }
+
+/* ==========================
+   CONTAINER
+========================== */
 
 .container{
     width:100%;
     display:flex;
     justify-content:center;
-    align-items:center;
 }
+
+/* ==========================
+   FORMULÁRIO
+========================== */
 
 form{
-    width:380px;
+    width:400px;
     background:#fff;
-    padding:35px;
+    padding:30px;
     border-radius:15px;
-    box-shadow:0 15px 40px rgba(0,0,0,.2);
-
-    animation:aparecer .5s ease;
-}
-
-@keyframes aparecer{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 h2{
@@ -48,40 +46,48 @@ h2{
     margin-bottom:25px;
 }
 
+/* ==========================
+   CAMPOS
+========================== */
+
 label{
-    display:block;
+    display:block;      /* Faz cada label ficar em uma linha */
     margin-top:15px;
     margin-bottom:5px;
-    color:#555;
     font-weight:bold;
+    color:#555;
 }
 
 input{
+    display:block;      /* Faz cada input ocupar uma linha */
     width:100%;
     padding:12px;
+
     border:1px solid #ccc;
     border-radius:8px;
     font-size:15px;
-
-    transition:.3s;
 }
 
 input:focus{
-    border-color:#4facfe;
     outline:none;
-    box-shadow:0 0 8px rgba(79,172,254,.4);
+    border-color:#007bff;
+    box-shadow:0 0 8px rgba(0,123,255,.3);
 }
+
+/* ==========================
+   BOTÃO
+========================== */
 
 button{
     width:100%;
     margin-top:25px;
     padding:12px;
 
-    background:linear-gradient(90deg,#007bff,#00bfff);
-    color:white;
     border:none;
     border-radius:8px;
 
+    background:#007bff;
+    color:#fff;
     font-size:16px;
     font-weight:bold;
 
@@ -90,10 +96,5 @@ button{
 }
 
 button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(0,123,255,.4);
-}
-
-button:active{
-    transform:scale(.98);
+    background:#0056b3;
 }

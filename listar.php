@@ -10,70 +10,51 @@ $result = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
     <meta charset="UTF-8">
     <title>Lista de Usuários</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background: #eee;
-        }
-
-        .edit {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .delete {
-            color: red;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+    <!-- CSS CORRETO -->
+    <link rel="stylesheet" href="listar.css">
 </head>
 
 <body>
+
+<?php if (isset($_GET['msg'])): ?>
+
+    <?php if ($_GET['msg'] == "cadastrado"): ?>
+        <div id="modalSucesso" class="modal">
+            <div class="modal-box">
+                <h2>Sucesso!</h2>
+                <p>✅ Usuário cadastrado com sucesso!</p>
+                <button onclick="fecharModal()">OK</button>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($_GET['msg'] == "editado"): ?>
+        <div id="modalSucesso" class="modal">
+            <div class="modal-box">
+                <h2>Sucesso!</h2>
+                <p>✏️ Usuário atualizado com sucesso!</p>
+                <button onclick="fecharModal()">OK</button>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($_GET['msg'] == "deletado"): ?>
+        <div id="modalSucesso" class="modal">
+            <div class="modal-box">
+                <h2>Sucesso!</h2>
+                <p>🗑 Usuário excluído com sucesso!</p>
+                <button onclick="fecharModal()">OK</button>
+            </div>
+        </div>
+    <?php endif; ?>
+
+<?php endif; ?>
+
+<script>
+function fecharModal(){
+    document.getElementById('modalSucesso').style.display = 'none';
+}
+</script>
 
 <div class="container">
 
@@ -82,15 +63,20 @@ $result = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
     <a class="btn" href="index.html">+ Cadastrar Novo Usuário</a>
 
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Email</th>
-            <th>Curso</th>
-            <th>Editar</th>
-            <th>Excluir</th>
-        </tr>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Email</th>
+                <th>Curso</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+
+        <tbody>
 
         <?php if ($result->num_rows > 0): ?>
             <?php while ($u = $result->fetch_assoc()): ?>
@@ -103,7 +89,7 @@ $result = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
 
                     <td>
                         <a class="edit" href="editar.php?id=<?= $u['id'] ?>">
-                            Editar
+                            ✏️ Editar
                         </a>
                     </td>
 
@@ -111,7 +97,7 @@ $result = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
                         <a class="delete"
                            href="delete.php?id=<?= $u['id'] ?>"
                            onclick="return confirm('Deseja realmente excluir este usuário?')">
-                            Excluir
+                            🗑 Excluir
                         </a>
                     </td>
                 </tr>
@@ -121,6 +107,8 @@ $result = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
                 <td colspan="7">Nenhum usuário cadastrado</td>
             </tr>
         <?php endif; ?>
+
+        </tbody>
 
     </table>
 
